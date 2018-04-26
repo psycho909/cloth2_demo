@@ -69,7 +69,7 @@ html, body {
 #header {
   width: 100%;
   height: auto;
-  padding: 2rem 1rem;
+  padding: 1rem;
   border-bottom: 1px solid #ececec;
   background-color: #fff; }
   #header .header-wrppper {
@@ -417,25 +417,28 @@ html, body {
   display: block;
   margin-bottom: 3rem; }
   #course-list-wrapper .course-list-title {
-    width: 100%; }
+    width: 100%;
+    margin-top: .5rem;
+    margin-bottom: .5rem; }
     #course-list-wrapper .course-list-title span {
       padding: .75rem 1.5rem;
       color: #c7518c;
       border: 1px solid #c7518c;
       display: inline-block;
       font-weight: bold;
-      margin-left: 1.5625rem;
-      margin-bottom: 1rem; }
+      margin-left: 1.5625rem; }
   #course-list-wrapper .course-list-box {
     width: 1150px;
-    height: 240px;
     background-color: #fff;
     margin: 0 auto;
     padding: 5px;
     -webkit-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
             box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.25);
     position: relative;
-    margin-bottom: 1rem; }
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; }
     #course-list-wrapper .course-list-box.junior:before {
       content: '初級';
       position: absolute;
@@ -474,7 +477,10 @@ html, body {
       height: 100%;
       display: -webkit-box;
       display: -ms-flexbox;
-      display: flex; }
+      display: flex;
+      -webkit-box-flex: 1;
+          -ms-flex: 1 auto;
+              flex: 1 auto; }
       #course-list-wrapper .course-list-box .course-list .course-list-img {
         background-position: center 40%;
         background-repeat: no-repeat;
@@ -512,7 +518,8 @@ html, body {
               font-weight: bold;
               margin-bottom: .5rem; }
             #course-list-wrapper .course-list-box .course-list .course-list-content .content-box .teachs .item-info {
-              font-size: 0.9rem; }
+              font-size: 0.9rem;
+              line-height: 18px; }
             #course-list-wrapper .course-list-box .course-list .course-list-content .content-box .teachs ul {
               padding-left: 1rem; }
               #course-list-wrapper .course-list-box .course-list .course-list-content .content-box .teachs ul li {
@@ -530,9 +537,9 @@ html, body {
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-        padding: 2rem 2rem; }
+        padding: 1rem .8rem;
+        -ms-flex-preferred-size: 17%;
+            flex-basis: 17%; }
         #course-list-wrapper .course-list-box .course-list .course-list-join a {
           text-decoration: none; }
         #course-list-wrapper .course-list-box .course-list .course-list-join .course-list-diff {
@@ -543,7 +550,8 @@ html, body {
           display: flex;
           -webkit-box-align: center;
               -ms-flex-align: center;
-                  align-items: center; }
+                  align-items: center;
+          margin-bottom: .5rem; }
           #course-list-wrapper .course-list-box .course-list .course-list-join .course-list-diff .title {
             font-size: 14px;
             margin-right: .5rem; }
@@ -564,7 +572,9 @@ html, body {
           padding: .5rem 3rem;
           color: #fff;
           border-radius: 6px;
-          font-weight: bold; }
+          font-weight: bold;
+          margin-top: .5rem;
+          margin-bottom: .5rem; }
         #course-list-wrapper .course-list-box .course-list .course-list-join .course-list-price {
           display: -webkit-box;
           display: -ms-flexbox;
@@ -724,7 +734,7 @@ html, body {
 @media screen and (max-width: 1024px) {
   #header {
     height: auto;
-    padding: 2rem 1rem; }
+    padding: 1rem; }
   #course a {
     height: auto; }
   #new-course ul {
@@ -772,6 +782,11 @@ html, body {
     width: 25%; }
   #copyright .copyright {
     text-align: center; }
+  #course-list-wrapper .course-list-box .course-list .course-list-content .title-box h5 {
+    height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
   #course-list-wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
