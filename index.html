@@ -37,6 +37,9 @@
 	<link rel="stylesheet" href="./css/index.css">
 	<script src="./js/lib/jquery-3.1.1.min.js"></script>
 	<script src="./js/swiper-4.2.2.min.js"></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	<script src="https://imagesloaded.desandro.com/imagesloaded.pkgd.js"></script>
+
 </head>
 <body>
 	<div class="wrapper">
@@ -57,13 +60,13 @@
 			<div id="swiper-bigAd" class="swiper-container">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
-						<img src="./images/swiper/01.jpg" alt="">
+						<img src="./images/swiper/home-1.jpg" alt="">
 					</div>
 					<div class="swiper-slide">
-						<img src="./images/swiper/02.jpg" alt="">
+						<img src="./images/swiper/home-2.jpg" alt="">
 					</div>
 					<div class="swiper-slide">
-						<img src="./images/swiper/03.jpg" alt="">
+						<img src="./images/swiper/home-3.jpg" alt="">
 					</div>
 				</div>
 				<!-- 如果需要分页器 -->
@@ -125,7 +128,8 @@
 					</svg>
 				</a>
 			</h4>
-			<div class="hot-course-list">
+			<div class="hot-course-list grid">
+				<div class="grid-sizer"></div>
 				<!-- <a href="#" class="hot-course-item">
 					<div class="hot-course-itemImage">
 						<div class="hot-course-itemText">
@@ -151,8 +155,8 @@
 				</div>
 				<div class="content-item social-list">
 					<div class="title">Social</div>
-					<a class="social-icon fb-icon" href="#" target="https://www.facebook.com/cloth2.tw/"></a>
-					<a class="social-icon ig-icon" href="#" target="https://www.facebook.com/cloth2.tw/"></a>
+					<a class="social-icon fb-icon" href="https://www.facebook.com/cloth2.tw/" target="_blank"></a>
+					<a class="social-icon ig-icon" href="#" target="_blank"></a>
 				</div>
 				<div class="content-item support-list">
 					<div class="title">Support</div>
@@ -173,6 +177,7 @@
 			<div class="copyright">版權所有 © Copyright  2018 布平方手作教室</section>
 		</footer>
 	</div>
+
 	<script src="js/app.js"></script>
 	<script>
 		let colors=['#F8B595','#F67280','#C06C84','#6C5B7C','#35B0AB','#307672','#3D6CB9','#FF8F56','#394A51','#C00000','#6C567B','#8559A5','#22559C','#F12B6B','#F0B917']
@@ -218,17 +223,26 @@
 		];
 		let hotCourseHTML='';
 		let hotCourseStr=`
-			<a href="{href}" class="hot-course-item" target="_blank">
-				<div class="hot-course-itemImage" style="background-image:url('{image}');">
-					<div class="hot-course-itemText" style="background-color:{color};">
-						<div class="hot-course-itemText_inner">
-							<span>{type}</span>
-							<span>{title}</span>
-						</div>
-					</div>
+			<a href="{href}" class="grid-item hot-course-item" target="_blank">
+				<img src="{image}" alt=""/>
+				<div class="hot-course-itemText" style="background-color:{color};">
+					<span>{type}</span>
+					<span>{title}</span>
 				</div>
 			</a>
 		`;
+		// let hotCourseStr=`
+		// 	<a href="{href}" class="hot-course-item" target="_blank">
+		// 		<div class="hot-course-itemImage" style="background-image:url('{image}');">
+		// 			<div class="hot-course-itemText" style="background-color:{color};">
+		// 				<div class="hot-course-itemText_inner">
+		// 					<span>{type}</span>
+		// 					<span>{title}</span>
+		// 				</div>
+		// 			</div>
+		// 		</div>
+		// 	</a>
+		// `;
 		let newCourseList=[
 			{href:'https://www.facebook.com/cloth2.tw/posts/165858474080897',image:'./images/newcourse/01.jpg',type:'',title:'布平方童裝課程'},
 			{href:'https://www.facebook.com/cloth2.tw/posts/166370764029668',image:'./images/newcourse/02.jpg',type:'',title:'條紋寬版上衣'},
@@ -259,7 +273,7 @@
 										.replace('{type}',newCourseList[i].type)
 		}
 		$('#swiper-moreAd .swiper-wrapper').html(newCourseHTML)
-
+		hotCourseHTML=`<div class="grid-sizer"></div>`;
 		for(var i=0;i<hotCourseList.length;i++){
 			hotCourseHTML+=hotCourseStr.replace('{href}',hotCourseList[i].href)
 										.replace('{image}',hotCourseList[i].image)
@@ -268,6 +282,20 @@
 										.replace('{type}',hotCourseList[i].type)
 		}
 		$('.hot-course-list').html(hotCourseHTML)
+		var grid = document.querySelector('.grid');
+
+		var msnry = new Masonry( grid, {
+			itemSelector: '.grid-item',
+			columnWidth: '.grid-sizer',
+			percentPosition: true
+		});
+
+		imagesLoaded( grid ).on( 'progress', function() {
+			// layout Masonry after each image loads
+			msnry.layout();
+		});
+
+
 		$('.nav-toggle').on('click',function(){
 			$('.navbar').toggleClass('toggle');
 		})
@@ -275,10 +303,10 @@
 		var bigAd = new Swiper ('#swiper-bigAd', {
 			direction: 'horizontal',
 			loop: true,
-			autoplay: {
-				delay: 2000,
-				disableOnInteraction: false,
-			},
+			// autoplay: {
+			// 	delay: 2000,
+			// 	disableOnInteraction: false,
+			// },
 			// 如果需要分页器
 			pagination: {
 				el: '.swiper-pagination',
