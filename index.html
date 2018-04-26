@@ -282,17 +282,18 @@
 										.replace('{type}',hotCourseList[i].type)
 		}
 		$('.hot-course-list').html(hotCourseHTML)
-		var grid = document.querySelector('.grid');
 
-		var msnry = new Masonry( grid, {
+
+		// init Masonry
+		var $grid = $('.grid').masonry({
+			// options...
 			itemSelector: '.grid-item',
-			columnWidth: '.grid-sizer',
-			percentPosition: true
+				columnWidth: '.grid-sizer',
+				percentPosition: true
 		});
-
-		imagesLoaded( grid ).on( 'progress', function() {
-			// layout Masonry after each image loads
-			msnry.layout();
+		// layout Masonry after each image loads
+		$grid.imagesLoaded().progress( function() {
+			$grid.masonry('layout');
 		});
 
 
