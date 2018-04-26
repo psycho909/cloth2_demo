@@ -476,7 +476,7 @@ html, body {
       display: -ms-flexbox;
       display: flex; }
       #course-list-wrapper .course-list-box .course-list .course-list-img {
-        background-position: center 0%;
+        background-position: center 40%;
         background-repeat: no-repeat;
         background-size: cover; }
       #course-list-wrapper .course-list-box .course-list .course-list-content {
