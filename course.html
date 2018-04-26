@@ -220,7 +220,7 @@
 		];
 		let CourseHTML='';
 		let CourseStr=`
-		<div class="course-list-box {level}">
+		<div id="course-list_{id}" class="course-list-box {level}">
 			<div class="course-list">
 				<div class="course-list-img flex-20" style="background-image:url('{image}');"></div>
 				<div class="course-list-content">
@@ -288,6 +288,7 @@
 										.replace('{type}',CourseList[i][j].type)
 										.replace('{level}',CourseList[i][j].level)
 										.replace('{price}',CourseList[i][j].price)
+										.replace('{id}',`${[i]}_${[j]}`)
 			}
 			CourseAll=CourseTitleHTML+CourseHTML;
 			console.log(CourseAll)
