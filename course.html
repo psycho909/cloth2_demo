@@ -75,57 +75,7 @@
 			</div>
 		</section>
 
-		<articel id="course-list-container">
-			<!-- <div class="course-list-wrapper">
-				<h4 class="course-list-title">
-					<span>初階課程 - 兒童款</span>
-				</h4>
-				<div id="course-list_0_0" class="course-list-box junior">
-					<div class="course-list">
-						<div class="course-list-img flex-20" style="background-image:url('./images/course-list/01.jpg');"></div>
-						<div class="course-list-content">
-							<div class="title-box">
-								<h4>親子洋裝-女孩款</h4>
-								<h5>日系小洋裝，春天柔和的色系，非常適合優雅的小蘿莉，裙擺，刺繡自由曲線，法國結粒繡，隨性而至</h5>
-							</div>
-							<div class="content-box">
-								<div class="teachs teach-focus">
-									<div class="title">教學重點</div>
-									<ul>
-										<li>基本袖接法</li><li>領口外滾</li><li>釦耳製作與固定</li><li>抽細褶</li><li>平針繡、法國結粒繡</li>
-									</ul>
-								</div>
-								<div class="teachs teach-notice">
-									<div class="title">注意事項</div>
-									<ul>
-										<li>需有車縫經驗, 請自備工具</li><li>可自行準備布料由學費中扣除</li><li>刺繡部分需帶回家完成</li>
-									</ul>
-								</div>
-								<div class="teachs teach-item">
-									<div class="title">作品尺寸：(單位公分)</div>
-									<div class="item-info">衣長 52.5, 胸圍 62, 肩寬 24.5, 袖長 23.5</div>
-								</div>
-							</div>
-						</div>
-						<div class="course-list-join">
-							<div class="course-list-diff">
-								<span class="title">難度</span>
-								<div class="stars">
-									<span class="star star-fill"></span><span class="star star-fill"></span><span class="star star-fill"></span><span class="star star-fill"></span><span class="star star-fill"></span>
-								</div>
-							</div>
-							<div class="course-list-price">
-								<span class="price">$ 1,860</span>
-								<span class="notice">(含學費、場地費、材料費)</span>
-							</div>
-							<a href="https://www.facebook.com/cloth2.tw/posts/152747955391949" class="btn btn-signup" target="_blank">我要報名</a>
-							<a class="courseList-join-rules text-right" href="javascript:;" target="_blank">(報名須知)</a>
-						</div>
-					</div>
-				</div>
-			</div> -->
-
-		</articel>
+		<articel id="course-list-container"></articel>
 
 		<section id="content">
 			<section class="content-wrapper">
@@ -182,7 +132,7 @@
 				let CourseStr=`
 					<div id="course-list_{id}" class="course-list-box {level}">
 						<div class="course-list">
-							<div class="course-list-img flex-20" style="background-image:url('{image}');"></div>
+							<div class="course-list-img flex-20" data-src="{image}"></div>
 							<div class="course-list-content">
 								<div class="title-box">
 									<h4>{title}</h4>
@@ -290,7 +240,6 @@
 		$('.nav-toggle').on('click',function(){
 			$('.navbar').toggleClass('toggle');
 		})
-
 		var bigAd = new Swiper ('#swiper-bigAd', {
 			direction: 'horizontal',
 			loop: true,
@@ -332,6 +281,62 @@
 				}
 			}
 		});     
+
+		var clientHeight=document.documentElement.clientHeight;
+		var scrollHeight=document.documentElement.scrollTop + clientHeight;
+
+		function getTop(el,initVal){
+			var top=el.offsetTop+initVal;
+			if(el.offsetParent !== null){
+				top += el.offsetParent.clientTop;
+				return getTop(el.offsetParent,top);
+			}else{
+				return top;
+			}
+		}
+		function inSight(el){
+			var clientHeight=document.documentElement.clientHeight;
+			var scrollHeight=document.documentElement.scrollTop + clientHeight;
+
+			return getTop(el,0) < scrollHeight;
+		}
+
+		function loadImg(el){
+			if(!el.style.backgroundImage){
+				el.style.backgroundImage=`url('${el.dataset.src}')`;
+			}
+		}
+		function checkImgs(){
+			var count=0;
+			var imgs=document.querySelectorAll('.course-list-img');
+			Array.from(imgs).forEach(el=>{
+				if (inSight(el)){
+					loadImg(el)
+				}
+			})
+			// console.log(count++)
+		}
+		function throttle(fun,delay,time){
+			var timeout;
+			var previous= +new Date();
+			return function(){
+				var now= +new Date();
+				var context=this;
+				var args=arguments;
+				clearTimeout(timeout);
+				if(now - previous >= time ){
+					fun.apply(context,args);
+					previous=now;
+				}else{
+					timeout=setTimeout(function(){
+						fun.apply(context,args);
+					},delay)
+				}
+			}
+		}
+
+		window.addEventListener('scroll', throttle(checkImgs,200,1000),false);
+		window.onload = checkImgs;
 	</script>
 </body>
 </html>
